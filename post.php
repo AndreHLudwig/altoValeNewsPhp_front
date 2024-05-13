@@ -2,52 +2,63 @@
   include_once("templates/header.php");
 
   if(isset($_GET['id'])) {
-
     $postId = $_GET['id'];
-    $currentPost;
 
-    foreach($posts as $post) {
-      if($post['id'] == $postId) {
-        $currentPost = $post;
-      }
-    }
+    // Endpoint da API
+    $api_url = "http://localhost:8080/publicacao/$postId";
 
-  }
+    // Fazendo solicitação HTTP para obter os dados da postagem
+    $response = file_get_contents($api_url);
+    
+    if ($response !== false) {
+      $post = json_decode($response, true);
 
+      // Verifica se a decodificação JSON foi bem-sucedida
+      if ($post !== null) {
 ?>
-  <main id="post-container">
-    <div class="content-container">
-      <h1 id="main-title"><?= $currentPost['title'] ?></h1>
-      <p id="post-description"><?= $currentPost['description'] ?></p>
+
+<main id="post-container">
+  <div class="content-container">
+    <h1 id="main-title"><?= $post['titulo'] ?></h1>
+    <p id="post-description"><?= $post['texto'] ?></p>
+    <?php if ($post['imagem'] !== null): ?>
       <div class="img-container">
-        <img src="<?= $BASE_URL ?>/img/<?= $currentPost['img'] ?>" alt="<?= $currentPost['title'] ?>">
+        <img src="<?= $post['imagem'] ?>" alt="<?= $post['titulo'] ?>">
       </div>
-      <p class="post-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, explicabo provident, voluptatum, veniam nihil repellat eveniet quae adipisci exercitationem quos minus corrupti placeat veritatis architecto excepturi laudantium nulla tenetur cupiditate.
-      Odit saepe voluptas voluptates, iusto minima dolore deleniti corporis itaque, rem facere inventore in sed cumque voluptatibus unde! Assumenda nam aspernatur eveniet id illo inventore ratione laboriosam iusto culpa provident.
-      Nam blanditiis autem fugiat officiis animi, adipisci consequuntur minima. Mollitia atque iste sapiente quod pariatur necessitatibus minus voluptatem rerum eos modi enim perspiciatis provident ducimus, iure nostrum nobis eum iusto.
-      Perspiciatis sed numquam animi quae assumenda nesciunt voluptatibus rem! Deserunt, quae ex, pariatur nemo eveniet ipsam delectus aperiam aut quas blanditiis repellat quibusdam debitis sequi odit nostrum? Dolores, iure quam!
-      Beatae vel corrupti laborum repudiandae, placeat neque officiis odit provident reiciendis ducimus amet rem. Exercitationem similique itaque labore asperiores quasi officia aspernatur quas soluta quos. Quasi aliquam in laboriosam illum.</p>
-      <p class="post-content">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, explicabo provident, voluptatum, veniam nihil repellat eveniet quae adipisci exercitationem quos minus corrupti placeat veritatis architecto excepturi laudantium nulla tenetur cupiditate.
-      Odit saepe voluptas voluptates, iusto minima dolore deleniti corporis itaque, rem facere inventore in sed cumque voluptatibus unde! Assumenda nam aspernatur eveniet id illo inventore ratione laboriosam iusto culpa provident.
-      Nam blanditiis autem fugiat officiis animi, adipisci consequuntur minima. Mollitia atque iste sapiente quod pariatur necessitatibus minus voluptatem rerum eos modi enim perspiciatis provident ducimus, iure nostrum nobis eum iusto.
-      Perspiciatis sed numquam animi quae assumenda nesciunt voluptatibus rem! Deserunt, quae ex, pariatur nemo eveniet ipsam delectus aperiam aut quas blanditiis repellat quibusdam debitis sequi odit nostrum? Dolores, iure quam!
-      Beatae vel corrupti laborum repudiandae, placeat neque officiis odit provident reiciendis ducimus amet rem. Exercitationem similique itaque labore asperiores quasi officia aspernatur quas soluta quos. Quasi aliquam in laboriosam illum.</p>
-    </div>
-    <aside id="nav-container">
-      <h3 id="tags-title">Tags</h3>
-      <ul id="tag-list">
-        <?php foreach($currentPost['tags'] as $tag): ?>
-          <li><a href="#"><?= $tag ?></a></li>
-        <?php endforeach; ?>
-      </ul>
-      <h3 id="categories-title">Categorias</h3>
-      <ul id="categories-list">
-        <?php foreach($categories as $category): ?>
-          <li><a href="#"><?= $category ?></a></li>
-        <?php endforeach; ?>
-      </ul>
-    </aside>
-  </main>
+    <?php endif; ?>
+    <?php if ($post['video'] !== null): ?>
+      <div class="video-container">
+        <video controls>
+          <source src="<?= $post['video'] ?>" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    <?php endif; ?>
+  </div>
+  <aside id="nav-container">
+    <h3 id="categories-title">Categoria</h3>
+    <ul id="categories-list">
+      <li><a href="#"><?= $post['categoria'] ?></a></li>
+    </ul>
+    <h3 id="comments-title">Comentários</h3>
+    <ul id="comment-list">
+      <?php foreach($post['comentarios'] as $comment): ?>
+        <li>
+          <p><?= $comment['texto'] ?></p>
+          <p>Por: <?= $comment['usuario']['nome'] ?></p>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </aside>
+</main>
+
 <?php
-  include_once("templates/footer.php")
+      } else {
+        echo "Erro ao decodificar os dados da API.";
+      }
+    } else {
+      echo "Erro ao fazer solicitação para a API.";
+    }
+  }
+  include_once("templates/footer.php");
 ?>
