@@ -76,6 +76,7 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    text-align: justify;
 }
 
 .post-box {
@@ -108,7 +109,8 @@ main {
 }
 
 .post-box .post-description {
-    color: #666;
+    color: #535252;
+    text-align: justify;
 }
 
 .tags-container {
@@ -131,6 +133,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: 250px;
+    text-align: justify;
 }
 
 .content-container {
