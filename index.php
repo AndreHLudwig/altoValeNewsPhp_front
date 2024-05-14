@@ -24,18 +24,18 @@ $posts = json_decode($response, true);
         <p>O seu portal de notícias do Alto Vale do Itajaí</p>
     </div>
     <div id="posts-container">
-    <?php foreach ($posts as $post) : ?>
-        <div class="post-box">
-            <img src="<?= $BASE_URL ?>/img/<?= $post['imagem'] ?>" alt="<?= $post['titulo'] ?>">
-            <h2 class="post-title">
-                <a href="<?= $BASE_URL ?>post.php?id=<?= $post['publicacaoId'] ?>"><?= $post['titulo'] ?></a>
-            </h2>
-            <p class="post-description">
-                <?= substr($post['texto'], 0, 280) ?><?= strlen($post['texto']) > 280 ? "..." : "" ?>
-            </p>
-        </div>
-    <?php endforeach; ?>
-</div>
+        <?php foreach ($posts as $post) : ?>
+            <div class="post-box">
+                <img src="<?= $BASE_URL ?>/img/<?= $post['imagem'] ?>" alt="<?= $post['titulo'] ?>">
+                <h2 class="post-title">
+                    <a href="<?= $BASE_URL ?>post.php?id=<?= $post['publicacaoId'] ?>"><?= $post['titulo'] ?></a>
+                </h2>
+                <p class="post-description">
+                    <?= substr($post['texto'], 0, 280) ?><?= strlen($post['texto']) > 280 ? "..." : "" ?>
+                </p>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
 </main>
 
