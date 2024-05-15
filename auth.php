@@ -1,13 +1,14 @@
+<?php require_once("templates/header.php"); ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro e Login</title>
-    <!-- Seus estilos CSS -->
 </head>
 <body>
-<?php require_once("templates/header.php"); ?>
+
 <div id="main-container" class="container-fluid">
     <div class="col-md-12">
         <div class="row" id="auth-row">
@@ -41,6 +42,26 @@
                         <input type="text" class="form-control" id="register-lastname" placeholder="Digite seu sobrenome" required>
                     </div>
                     <div class="form-group">
+                        <label for="register-cpf">CPF:</label>
+                        <input type="text" class="form-control" id="register-cpf" placeholder="Digite seu CPF" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-endereco">Endereço:</label>
+                        <input type="text" class="form-control" id="register-endereco" placeholder="Digite seu endereço" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-cidade">Cidade:</label>
+                        <input type="text" class="form-control" id="register-cidade" placeholder="Digite sua cidade" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-estado">Estado:</label>
+                        <input type="text" class="form-control" id="register-estado" placeholder="Digite seu estado" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-cep">CEP:</label>
+                        <input type="text" class="form-control" id="register-cep" placeholder="Digite seu CEP" required>
+                    </div>
+                    <div class="form-group">
                         <label for="register-password">Senha:</label>
                         <input type="password" class="form-control" id="register-password" placeholder="Digite sua senha" required>
                     </div>
@@ -54,7 +75,7 @@
         </div>
     </div>
 </div>
-<?php require_once("templates/footer.php"); ?>
+<!--<?php require_once("templates/footer.php"); ?>-->
 
 <script>
     // Função para enviar uma requisição POST com AJAX
@@ -80,7 +101,7 @@
         // Dados para o login de usuário
         var loginData = {
             email: email,
-            password: password
+            senha: password
         };
 
         // Enviar requisição POST para fazer login
@@ -97,6 +118,11 @@
         var email = document.getElementById("register-email").value;
         var name = document.getElementById("register-name").value;
         var lastname = document.getElementById("register-lastname").value;
+        var cpf = document.getElementById("register-cpf").value;
+        var endereco = document.getElementById("register-endereco").value;
+        var cidade = document.getElementById("register-cidade").value;
+        var estado = document.getElementById("register-estado").value;
+        var cep = document.getElementById("register-cep").value;
         var password = document.getElementById("register-password").value;
         var confirmPassword = document.getElementById("register-confirmpassword").value;
 
@@ -109,9 +135,15 @@
         // Dados para o cadastro de usuário
         var registerData = {
             email: email,
-            name: name,
-            lastname: lastname,
-            password: password
+            nome: name,
+            sobrenome: lastname,
+            cpf: cpf,
+            endereco: endereco,
+            cidade: cidade,
+            estado: estado,
+            cep: cep,
+            senha: password,
+            tipo: 0
         };
 
         // Enviar requisição POST para cadastrar um usuário

@@ -39,6 +39,8 @@ include_once("data/categories.php");
             <li><a href="#" class="nav-link">Política</a></li>
             <li><a href="#" class="nav-link">Regionais</a></li>
             <li><a href="<?= $BASE_URL ?>contato.php" class="nav-link">Contato</a></li>
+            <!-- Adicionando o link para a página de cadastro e login -->
+            <li><a href="<?= $BASE_URL ?>auth.php" class="nav-link">Cadastro/Login</a></li>
         </ul>
     </nav>
 </header>
