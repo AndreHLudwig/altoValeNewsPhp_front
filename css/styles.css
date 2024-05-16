@@ -130,14 +130,15 @@ main {
     flex-wrap: wrap;
     justify-content: space-between;
     padding-top: 30px;
-    max-width: 1200px;
+    max-width: 1250px;
     margin: 0 auto;
     margin-bottom: 250px;
     text-align: justify;
 }
 
 .content-container {
-    flex-basis: calc(70% - 20px);
+    flex-basis: calc(85% - 20px);
+    margin: 5px;
 }
 
 #main-title {
@@ -161,10 +162,47 @@ main {
     border-radius: 5px;
 }
 
+/* Comentário Box */
+#comment-box {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#comment-text {
+    flex: 1; /* Ocupa todo o espaço restante */
+    flex-basis: 100%;
+    min-width: 200px; /* Largura mínima para garantir legibilidade */
+    margin-bottom: 20px; /* Espaçamento entre o textarea e o botão */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+#comment-box button {
+    min-width: 100px; /* Largura mínima para garantir legibilidade */
+    padding: 10px;
+    margin-bottom: 30px;
+    background-color: #4CAF50; /* Cor de fundo verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#comment-box button:hover {
+    background-color: #45a049; /* Cor mais escura ao passar o mouse */
+}
+
 /* Comentários */
 #comments-container {
-    flex-basis: calc(30% - 20px);
+    flex-basis: calc(85% - 20px);
     margin-top: 20px;
+    padding-top: 10px; /* Adiciona espaço acima do título dos comentários */
+    border-top: 1px solid #ccc; /* Adiciona uma linha separadora acima dos comentários */
 }
 
 #comments-title {
@@ -195,10 +233,10 @@ main {
     font-weight: bold;
 }
 
-
 /* POST ASIDE */
 .nav-container {
     flex-basis: 25%;
+    margin-left: 100px;
 }
 
 #categories-title {

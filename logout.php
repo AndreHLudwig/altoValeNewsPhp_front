@@ -12,7 +12,7 @@ echo "Sessão destruída<br>";
 echo '<script>';
 echo 'localStorage.removeItem("usuario");';
 echo 'localStorage.setItem("autenticado", "false");';
-echo 'window.location.href = "index.php";'; // Redireciona para a página inicial
+echo 'window.location.href = "index.php";';
 echo '</script>';
 echo "Dados do localStorage limpos e redirecionamento iniciado<br>";
 

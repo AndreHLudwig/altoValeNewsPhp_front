@@ -1,6 +1,5 @@
 <?php
 
-// Inclua os arquivos necessários
 include_once("helpers/url.php");
 include_once("templates/header.php");
 
@@ -148,8 +147,6 @@ include_once("templates/header.php");
 
         // Atualizar localStorage com os dados retornados
         localStorage.setItem("usuario", JSON.stringify(data));
-
-        // Atualizar a exibição dos dados do usuário, se necessário
     })
     .catch(error => {
         console.error("Erro:", error);
