@@ -20,11 +20,13 @@ require_once("templates/header.php");
                 <form id="login-form">
                     <div class="form-group">
                         <label for="login-email">E-mail:</label>
-                        <input type="email" class="form-control" id="login-email" placeholder="Digite seu e-mail" required>
+                        <input type="email" class="form-control" id="login-email" placeholder="Digite seu e-mail"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="login-password">Senha:</label>
-                        <input type="password" class="form-control" id="login-password" placeholder="Digite sua senha" required>
+                        <input type="password" class="form-control" id="login-password" placeholder="Digite sua senha"
+                               required>
                     </div>
                     <button type="submit" class="btn card-btn">Entrar</button>
                 </form>
@@ -34,15 +36,18 @@ require_once("templates/header.php");
                 <form id="register-form">
                     <div class="form-group">
                         <label for="register-email">E-mail:</label>
-                        <input type="email" class="form-control" id="register-email" placeholder="Digite seu e-mail" required>
+                        <input type="email" class="form-control" id="register-email" placeholder="Digite seu e-mail"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="register-name">Nome:</label>
-                        <input type="text" class="form-control" id="register-name" placeholder="Digite seu nome" required>
+                        <input type="text" class="form-control" id="register-name" placeholder="Digite seu nome"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="register-lastname">Sobrenome:</label>
-                        <input type="text" class="form-control" id="register-lastname" placeholder="Digite seu sobrenome" required>
+                        <input type="text" class="form-control" id="register-lastname"
+                               placeholder="Digite seu sobrenome" required>
                     </div>
                     <div class="form-group">
                         <label for="register-cpf">CPF:</label>
@@ -50,15 +55,18 @@ require_once("templates/header.php");
                     </div>
                     <div class="form-group">
                         <label for="register-endereco">Endereço:</label>
-                        <input type="text" class="form-control" id="register-endereco" placeholder="Digite seu endereço" required>
+                        <input type="text" class="form-control" id="register-endereco" placeholder="Digite seu endereço"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="register-cidade">Cidade:</label>
-                        <input type="text" class="form-control" id="register-cidade" placeholder="Digite sua cidade" required>
+                        <input type="text" class="form-control" id="register-cidade" placeholder="Digite sua cidade"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="register-estado">Estado:</label>
-                        <input type="text" class="form-control" id="register-estado" placeholder="Digite seu estado" required>
+                        <input type="text" class="form-control" id="register-estado" placeholder="Digite seu estado"
+                               required>
                     </div>
                     <div class="form-group">
                         <label for="register-cep">CEP:</label>
@@ -66,11 +74,13 @@ require_once("templates/header.php");
                     </div>
                     <div class="form-group">
                         <label for="register-password">Senha:</label>
-                        <input type="password" class="form-control" id="register-password" placeholder="Digite sua senha" required>
+                        <input type="password" class="form-control" id="register-password"
+                               placeholder="Digite sua senha" required>
                     </div>
                     <div class="form-group">
                         <label for="register-confirmpassword">Confirmação de senha:</label>
-                        <input type="password" class="form-control" id="register-confirmpassword" placeholder="Confirme sua senha" required>
+                        <input type="password" class="form-control" id="register-confirmpassword"
+                               placeholder="Confirme sua senha" required>
                     </div>
                     <button type="submit" class="btn card-btn">Registrar</button>
                 </form>
@@ -78,7 +88,6 @@ require_once("templates/header.php");
         </div>
     </div>
 </div>
-<!--<?php require_once("templates/footer.php"); ?>-->
 
 <script>
     // Função para enviar uma requisição POST com AJAX
@@ -190,4 +199,5 @@ require_once("templates/header.php");
     });
 </script>
 </body>
+<?php //require_once("templates/footer.php"); ?>
 </html>

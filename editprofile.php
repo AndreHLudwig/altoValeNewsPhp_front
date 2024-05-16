@@ -23,6 +23,7 @@ include_once("templates/header.php");
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 </head>
+
 <body>
 
 <div class="container mt-5">
@@ -156,3 +157,4 @@ include_once("templates/header.php");
 </script>
 </body>
 </html>
+<?php //include_once("templates/footer.php") ?>
