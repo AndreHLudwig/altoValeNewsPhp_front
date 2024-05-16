@@ -1,4 +1,7 @@
-<?php require_once("templates/header.php"); ?>
+<?php
+session_start();
+require_once("templates/header.php");
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -106,10 +109,26 @@
 
         // Enviar requisição POST para fazer login
         enviarRequisicaoPOST("http://localhost:8080/usuario/login", loginData, function (response) {
-            // Lógica para manipular a resposta do servidor após o login
-            console.log("Resposta do login: ", response);
+            if (response) {
+                // Autenticação bem-sucedida, acessar detalhes do usuário
+                var usuario = JSON.parse(response);
+                console.log("Usuário autenticado: ", usuario);
+                // Armazenar dados do usuário no localStorage
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                // Definir sinalizador de autenticação
+                localStorage.setItem("autenticado", "true");
+                // Redireciona para o index
+                window.location.href = "index.php";
+            } else {
+                // Autenticação falhou
+                console.log("Autenticação falhou");
+                // Definir sinalizador de autenticação como falso
+                localStorage.setItem("autenticado", "false");
+            }
         });
+
     });
+
 
     // Manipulador de evento para o formulário de cadastro
     document.getElementById("register-form").addEventListener("submit", function (event) {
@@ -149,7 +168,24 @@
         // Enviar requisição POST para cadastrar um usuário
         enviarRequisicaoPOST("http://localhost:8080/usuario", registerData, function (response) {
             // Lógica para manipular a resposta do servidor após o cadastro
-            console.log("Resposta do cadastro: ", response);
+            if (response) {
+                // Cadastro bem-sucedido, acessar detalhes do usuário
+                var usuario = JSON.parse(response);
+                console.log("Usuário cadastrado: ", usuario);
+
+                // Armazenar dados do usuário no localStorage
+                localStorage.setItem("usuario", JSON.stringify(usuario));
+                // Definir sinalizador de cadastro bem-sucedido
+                localStorage.setItem("autenticado", "true");
+
+                // Redirecionar para index.php após o cadastro bem-sucedido
+                window.location.href = "index.php";
+            } else {
+                // Cadastro falhou
+                console.log("Cadastro falhou");
+                // Definir sinalizador de cadastro como falha
+                localStorage.setItem("autenticado", "false");
+            }
         });
     });
 </script>
