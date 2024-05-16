@@ -36,12 +36,11 @@ include_once("data/categories.php");
             <li><a href="<?= $BASE_URL ?>" class="nav-link">Home</a></li>
             <li><a href="#" class="nav-link">Cultura</a></li>
             <li><a href="#" class="nav-link">Economia</a></li>
-            <!--            <li><a href="#" class="nav-link">Educação</a></li>-->
             <li><a href="#" class="nav-link">Esportes</a></li>
             <li><a href="#" class="nav-link">Política</a></li>
             <li><a href="#" class="nav-link">Regionais</a></li>
             <li><a href="<?= $BASE_URL ?>contato.php" class="nav-link">Contato</a></li>
-            <!-- Adicionando identificadores aos botões de Sair e Cadastro/Login -->
+            <li id="editprofile-btn" style="display: none;"><a href="<?= $BASE_URL ?>editprofile.php" class="nav-link">Editar Perfil</a></li>
             <li id="logout-btn" style="display: none;"><a href="<?= $BASE_URL ?>logout.php" class="nav-link">Sair</a></li>
             <li id="login-btn"><a href="<?= $BASE_URL ?>auth.php" class="nav-link">Cadastro/Login</a></li>
         </ul>
@@ -55,11 +54,17 @@ include_once("data/categories.php");
     // Atualizar dinamicamente a exibição dos botões com base na autenticação
     var logoutBtn = document.getElementById("logout-btn");
     var loginBtn = document.getElementById("login-btn");
+    var editprofileBtn = document.getElementById("editprofile-btn");
+
     if (autenticado) {
         logoutBtn.style.display = "block"; // Exibir o botão Sair se o usuário estiver autenticado
         loginBtn.style.display = "none"; // Ocultar o botão Cadastro/Login se o usuário estiver autenticado
+        editprofileBtn.style.display = "block"; // Exibir o botão Editar Perfil se o usuário estiver autenticado
     } else {
         logoutBtn.style.display = "none"; // Ocultar o botão Sair se o usuário não estiver autenticado
         loginBtn.style.display = "block"; // Exibir o botão Cadastro/Login se o usuário não estiver autenticado
+        editprofileBtn.style.display = "none"; // Ocultar o botão Editar Perfil se o usuário não estiver autenticado
     }
 </script>
+</body>
+</html>
