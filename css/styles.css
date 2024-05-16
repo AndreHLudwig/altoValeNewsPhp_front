@@ -230,6 +230,16 @@ main {
 #categories-list a:hover {
     color: #000;
 }
+/* AUTH */
+#auth-row {
+    display: flex;
+    justify-content: center;
+}
+
+#login-container,
+#register-container {
+    width: 400px; /* ou qualquer largura desejada */
+}
 
 /* FOOTER */
 footer {
