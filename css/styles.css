@@ -113,6 +113,10 @@ main {
     font-style: italic;
 }
 
+#post-description {
+    padding: 20px;
+}
+
 /* Post */
 #post-container {
     display: flex;
@@ -130,8 +134,10 @@ main {
     margin-bottom: 20px;
 }
 
-#post-description {
-    padding: 20px;
+.post-content {
+    color: #535252;
+    text-align: justify;
+    padding: 5px;
 }
 
 .img-container img {

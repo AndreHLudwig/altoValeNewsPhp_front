@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
                         <h1 id="main-title" class="mb-4"><?= $post['titulo'] ?></h1>
                         <p><strong>Publicado por:</strong> <?= $post['editor']['nome'] ?> <?= $post['editor']['sobrenome'] ?></p>
                         <p><strong>Data de Publicação:</strong> <?= date('d/m/Y', strtotime($post['data'])) ?></p>
-                        <p id="post-description" class="post-description"><?= $post['texto'] ?></p>
+                        <p id="post-content" class="post-content"><?= $post['texto'] ?></p>
                         <?php if ($post['imagem'] !== null): ?>
                             <div class="img-container mb-4">
                                 <img src="<?= $post['imagem'] ?>" class="img-fluid rounded" alt="<?= $post['titulo'] ?>">
