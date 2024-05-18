@@ -19,25 +19,31 @@ $posts = json_decode($response, true);
 ?>
 
 <main>
-    <div id="title-container">
-        <h1>Alto Vale News</h1>
-        <p>O seu portal de notícias do Alto Vale do Itajaí</p>
-    </div>
-    <div id="posts-container">
-        <?php foreach ($posts as $post) : ?>
-            <div class="post-box">
-                <img src="<?= $BASE_URL ?>/img/<?= $post['imagem'] ?>" alt="<?= $post['titulo'] ?>">
-                <h2 class="post-title">
-                    <a href="<?= $BASE_URL ?>post.php?id=<?= $post['publicacaoId'] ?>"><?= $post['titulo'] ?></a>
-                </h2>
-                <p class="post-description">
-                    <?= substr($post['texto'], 0, 280) ?><?= strlen($post['texto']) > 280 ? "..." : "" ?>
-                </p>
-            </div>
-        <?php endforeach; ?>
-    </div>
+    <div class="container">
+        <div class="py-5 text-center">
+            <h1 class="display-4">Alto Vale News</h1>
+            <p class="lead">O seu portal de notícias do Alto Vale do Itajaí</p>
+        </div>
 
+        <div class="row">
+            <?php foreach ($posts as $post) : ?>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="<?= $BASE_URL ?>/img/<?= $post['imagem'] ?>" class="card-img-top"
+                             alt="<?= $post['titulo'] ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><a
+                                        href="<?= $BASE_URL ?>post.php?id=<?= $post['publicacaoId'] ?>"><?= $post['titulo'] ?></a>
+                            </h5>
+                            <p class="card-text post-description"><?= substr($post['texto'], 0, 280) ?><?= strlen($post['texto']) > 280 ? "..." : "" ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </main>
+
 
 <?php
 include_once("templates/footer.php")

@@ -1,3 +1,4 @@
+/* Estilos gerais */
 * {
     font-family: 'Montserrat', sans-serif;
     padding: 0;
@@ -5,55 +6,51 @@
     box-sizing: border-box;
 }
 
-html {
-    min-height: 100vh;
-    position: relative;
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
 }
 
 main {
-    margin-bottom: 250px;
+    flex-grow: 1;
+    padding-bottom: 100px;
 }
 
-/* NAVBAR */
-#logo {
-    position: absolute;
-    top: 5px;
-    left: 9.5%;
+.container {
+    flex: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-#logo img {
-    width: 100px;
-    color: aqua;
+/* Estilos para campos readonly */
+.readonly-field {
+    background-color: #f0f0f0; /* Cor de fundo para campos readonly */
+    border: 1px solid #ccc; /* Borda para campos readonly */
+    color: #666; /* Cor do texto para campos readonly */
 }
 
-#navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Estilos para campos editáveis */
+.editable-field {
+    background-color: #fff; /* Cor de fundo para campos editáveis */
+    border: 1px solid #ccc; /* Borda para campos editáveis */
+}
+
+
+/* Navbar */
+.navbar-brand img {
+    width: 90px;
+    height: 90px;
+}
+
+.bg-custom {
     background-color: #80f463;
-    padding: 20px;
-    text-transform: uppercase;
-    list-style: none;
-    height: 100px;
 }
 
-#navbar li {
-    margin: 0 10px;
-    padding: 5px;
-}
-
-#navbar .nav-link {
-    color: #000000;
-    text-decoration: none;
-    transition: .5s;
-    font-size: 14px;
-}
-
-#navbar .nav-link:hover {
-    color: #999;
-}
-
-/* HOME */
+/* Home */
 #title-container {
     text-align: center;
     margin-top: 30px;
@@ -108,23 +105,15 @@ main {
     color: #999;
 }
 
-.post-box .post-description {
+/*.post-box */
+.post-description {
     color: #535252;
     text-align: justify;
+    padding: 5px;
+    font-style: italic;
 }
 
-.tags-container {
-    margin-top: 10px;
-}
-
-.tags-container a {
-    font-size: 14px;
-    color: #333;
-    display: inline-block;
-    margin-right: 5px;
-}
-
-/* POST */
+/* Post */
 #post-container {
     display: flex;
     flex-wrap: wrap;
@@ -136,25 +125,13 @@ main {
     text-align: justify;
 }
 
-.content-container {
-    flex-basis: calc(85% - 20px);
-    margin: 5px;
-}
-
 #main-title {
     font-size: 36px;
     margin-bottom: 20px;
 }
 
 #post-description {
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-.post-content {
-    line-height: 1.8;
-    margin: 10px 0;
-    text-align: justify;
+    padding: 20px;
 }
 
 .img-container img {
@@ -162,30 +139,31 @@ main {
     border-radius: 5px;
 }
 
-/* Comentário Box */
+/* Comment Box */
 #comment-box {
+    margin-bottom: 20px;
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
 }
 
 #comment-text {
-    flex: 1; /* Ocupa todo o espaço restante */
+    flex: 1;
     flex-basis: 100%;
-    min-width: 200px; /* Largura mínima para garantir legibilidade */
-    margin-bottom: 20px; /* Espaçamento entre o textarea e o botão */
+    min-width: 200px;
+    margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: vertical; /* Permite redimensionar verticalmente */
+    resize: vertical;
 }
 
 #comment-box button {
-    min-width: 100px; /* Largura mínima para garantir legibilidade */
+    min-width: 100px;
     padding: 10px;
-    margin-bottom: 30px;
-    background-color: #4CAF50; /* Cor de fundo verde */
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
@@ -193,16 +171,16 @@ main {
     transition: background-color 0.3s;
 }
 
+
 #comment-box button:hover {
-    background-color: #45a049; /* Cor mais escura ao passar o mouse */
+    background-color: #45a049;
 }
 
-/* Comentários */
+/* Comments */
 #comments-container {
-    flex-basis: calc(85% - 20px);
     margin-top: 20px;
-    padding-top: 10px; /* Adiciona espaço acima do título dos comentários */
-    border-top: 1px solid #ccc; /* Adiciona uma linha separadora acima dos comentários */
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
 }
 
 #comments-title {
@@ -233,11 +211,7 @@ main {
     font-weight: bold;
 }
 
-/* POST ASIDE */
-.nav-container {
-    flex-basis: 25%;
-    margin-left: 100px;
-}
+/* Post Aside */
 
 #categories-title {
     font-size: 24px;
@@ -268,24 +242,25 @@ main {
 #categories-list a:hover {
     color: #000;
 }
-/* AUTH */
-#auth-row {
-    display: flex;
-    justify-content: center;
+
+/* Auth */
+
+/* Edit Profile */
+#editProfileForm {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-#login-container,
-#register-container {
-    width: 400px; /* ou qualquer largura desejada */
+.form-group {
+    padding: 5px;
 }
 
-/* FOOTER */
+/* Footer */
 footer {
     width: 100%;
-    position: absolute;
-    bottom: 0;
     text-align: center;
     background-color: #80f463;
     color: #000000;
-    padding: 50px 0;
+    padding: 20px 0;
+    margin-top: auto;
 }

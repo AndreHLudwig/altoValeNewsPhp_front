@@ -16,54 +16,60 @@ if (isset($_GET['id'])) {
         // Verifica se a decodificação JSON foi bem-sucedida
         if ($post !== null) {
             ?>
-            <main id="post-container">
-                <div class="content-container">
-                    <h1 id="main-title"><?= $post['titulo'] ?></h1>
-                    <p><strong>Publicado por:</strong> <?= $post['editor']['nome'] ?> <?= $post['editor']['sobrenome'] ?></p>
-                    <p><strong>Data de Publicação:</strong> <?= date('d/m/Y', strtotime($post['data'])) ?></p>
-                    <p id="post-description"><?= $post['texto'] ?></p>
-                    <?php if ($post['imagem'] !== null): ?>
-                        <div class="img-container">
-                            <img src="<?= $post['imagem'] ?>" alt="<?= $post['titulo'] ?>">
+            <body>
+            <main id="post-container" class="container py-4">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h1 id="main-title" class="mb-4"><?= $post['titulo'] ?></h1>
+                        <p><strong>Publicado por:</strong> <?= $post['editor']['nome'] ?> <?= $post['editor']['sobrenome'] ?></p>
+                        <p><strong>Data de Publicação:</strong> <?= date('d/m/Y', strtotime($post['data'])) ?></p>
+                        <p id="post-description" class="post-description"><?= $post['texto'] ?></p>
+                        <?php if ($post['imagem'] !== null): ?>
+                            <div class="img-container mb-4">
+                                <img src="<?= $post['imagem'] ?>" class="img-fluid rounded" alt="<?= $post['titulo'] ?>">
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($post['video'] !== null): ?>
+                            <div class="video-container mb-4">
+                                <video controls class="img-fluid rounded">
+                                    <source src="<?= $post['video'] ?>" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="col-md-2">
+                        <div id="nav-container" class="mb-4">
+                            <h3 id="categories-title">Categoria</h3>
+                            <ul id="categories-list" class="list-group">
+                                <li class="list-group-item"><a href="#"><?= $post['categoria'] ?></a></li>
+                            </ul>
                         </div>
-                    <?php endif; ?>
-                    <?php if ($post['video'] !== null): ?>
-                        <div class="video-container">
-                            <video controls>
-                                <source src="<?= $post['video'] ?>" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    <?php endif; ?>
+                    </div>
                 </div>
-                <aside id="nav-container">
-                    <h3 id="categories-title">Categoria</h3>
-                    <ul id="categories-list">
-                        <li><a href="#"><?= $post['categoria'] ?></a></li>
-                    </ul>
-                </aside>
-                <aside id="comments-container">
-                    <h3 id="comments-title">Comentários</h3>
-                    <div id="comment-box">
-                        <textarea id="comment-text" placeholder="Digite seu comentário aqui"></textarea>
-                        <button onclick="enviarComentario()">Enviar Comentário</button>
+                <div class="row col-md-10">
+                    <div id="comments-container">
+                        <h3 id="comments-title">Comentários</h3>
+                        <div id="comment-box">
+                            <textarea id="comment-text" class="form-control" placeholder="Digite seu comentário aqui"></textarea>
+                            <button onclick="enviarComentario()" class="btn btn-primary">Enviar Comentário</button>
+                        </div>
+                        <div id="login-warning" class="alert alert-danger" style="display: none;">
+                            Você precisa estar autenticado para enviar um comentário. <a href="auth.php" class="alert-link">Clique aqui para fazer login</a>.
+                        </div>
+                        <ul id="comment-list" class="list-unstyled">
+                            <?php foreach ($post['comentarios'] as $comment): ?>
+                                <li class="mb-4 p-3 border rounded bg-light">
+                                    <p><strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?></p>
+                                    <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
+                                    <p><?= $comment['texto'] ?></p>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
                     </div>
-                    <div id="login-warning" style="display: none; color: red;">
-                        Você precisa estar autenticado para enviar um comentário. <a href="auth.php">Clique aqui para fazer login</a>.
-                    </div>
-                    <ul id="comment-list">
-                        <?php foreach ($post['comentarios'] as $comment): ?>
-                            <li>
-                                <p>
-                                    <strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?>
-                                </p>
-                                <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
-                                <p><?= $comment['texto'] ?></p>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </aside>
+                </div>
             </main>
+            </body>
             <?php
         } else {
             echo "Erro ao decodificar os dados da API.";
@@ -77,17 +83,26 @@ include_once("templates/footer.php");
 <script>
     // Função para enviar o comentário
     function enviarComentario() {
+        // Obtém o texto do comentário do usuário
+        var comentario = document.getElementById("comment-text").value.trim();
+
+        // Verifica se o campo de comentário está vazio
+        if (comentario === "") {
+            alert("Por favor, escreva algo antes de enviar o comentário.");
+            return;
+        }
+
         // Verifica se o usuário está autenticado
         if (localStorage.getItem("autenticado") === "true") {
             // Se autenticado, envia o comentário
-            enviarComentarioAutenticado();
+            enviarComentarioAutenticado(comentario);
         } else {
             // Se não autenticado, exibe o aviso
             document.getElementById("login-warning").style.display = "block";
         }
     }
 
-    function enviarComentarioAutenticado() {
+    function enviarComentarioAutenticado(comentario) {
         // Obtém o ID da publicação
         var postId = <?php echo json_encode($postId); ?>;
 
@@ -99,9 +114,6 @@ include_once("templates/footer.php");
             console.error('Erro: userId não encontrado no localStorage');
             return;
         }
-
-        // Obtém o texto do comentário do usuário
-        var comentario = document.getElementById("comment-text").value;
 
         // Cria o objeto JSON com os dados do comentário
         var comentarioData = {

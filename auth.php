@@ -1,5 +1,4 @@
 <?php
-//session_start();
 require_once("templates/header.php");
 ?>
 
@@ -12,82 +11,96 @@ require_once("templates/header.php");
 </head>
 <body>
 
-<div id="main-container" class="container-fluid">
-    <div class="col-md-12">
-        <div class="row" id="auth-row">
-            <div class="col-md-4" id="login-container">
-                <h2>Entrar</h2>
-                <form id="login-form">
-                    <div class="form-group">
-                        <label for="login-email">E-mail:</label>
-                        <input type="email" class="form-control" id="login-email" placeholder="Digite seu e-mail"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Senha:</label>
-                        <input type="password" class="form-control" id="login-password" placeholder="Digite sua senha"
-                               required>
-                    </div>
-                    <button type="submit" class="btn card-btn">Entrar</button>
-                </form>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Entrar</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="login-email">E-mail:</label>
+                            <input type="email" class="form-control" id="login-email" placeholder="Digite seu e-mail"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Senha:</label>
+                            <input type="password" class="form-control" id="login-password"
+                                   placeholder="Digite sua senha"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Entrar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-4" id="register-container">
-                <h2>Criar Conta</h2>
-                <form id="register-form">
-                    <div class="form-group">
-                        <label for="register-email">E-mail:</label>
-                        <input type="email" class="form-control" id="register-email" placeholder="Digite seu e-mail"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-name">Nome:</label>
-                        <input type="text" class="form-control" id="register-name" placeholder="Digite seu nome"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-lastname">Sobrenome:</label>
-                        <input type="text" class="form-control" id="register-lastname"
-                               placeholder="Digite seu sobrenome" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-cpf">CPF:</label>
-                        <input type="text" class="form-control" id="register-cpf" placeholder="Digite seu CPF" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-endereco">Endereço:</label>
-                        <input type="text" class="form-control" id="register-endereco" placeholder="Digite seu endereço"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-cidade">Cidade:</label>
-                        <input type="text" class="form-control" id="register-cidade" placeholder="Digite sua cidade"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-estado">Estado:</label>
-                        <input type="text" class="form-control" id="register-estado" placeholder="Digite seu estado"
-                               required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-cep">CEP:</label>
-                        <input type="text" class="form-control" id="register-cep" placeholder="Digite seu CEP" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Senha:</label>
-                        <input type="password" class="form-control" id="register-password"
-                               placeholder="Digite sua senha" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-confirmpassword">Confirmação de senha:</label>
-                        <input type="password" class="form-control" id="register-confirmpassword"
-                               placeholder="Confirme sua senha" required>
-                    </div>
-                    <button type="submit" class="btn card-btn">Registrar</button>
-                </form>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Criar Conta</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-email">E-mail:</label>
+                            <input type="email" class="form-control" id="register-email"
+                                   placeholder="Digite seu e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-name">Nome:</label>
+                            <input type="text" class="form-control" id="register-name"
+                                   placeholder="Digite seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-lastname">Sobrenome:</label>
+                            <input type="text" class="form-control" id="register-lastname"
+                                   placeholder="Digite seu sobrenome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-cpf">CPF:</label>
+                            <input type="text" class="form-control" id="register-cpf" placeholder="Digite seu CPF"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-endereco">Endereço:</label>
+                            <input type="text" class="form-control" id="register-endereco"
+                                   placeholder="Digite seu endereço" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-cidade">Cidade:</label>
+                            <input type="text" class="form-control" id="register-cidade"
+                                   placeholder="Digite sua cidade" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-estado">Estado:</label>
+                            <input type="text" class="form-control" id="register-estado"
+                                   placeholder="Digite seu estado" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-cep">CEP:</label>
+                            <input type="text" class="form-control" id="register-cep" placeholder="Digite seu CEP"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Senha:</label>
+                            <input type="password" class="form-control" id="register-password"
+                                   placeholder="Digite sua senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-confirmpassword">Confirmação de senha:</label>
+                            <input type="password" class="form-control" id="register-confirmpassword"
+                                   placeholder="Confirme sua senha" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     // Função para enviar uma requisição POST com AJAX
@@ -96,8 +109,14 @@ require_once("templates/header.php");
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                callback(xhr.responseText);
+            if (xhr.readyState === 4) {
+                console.log("Status:", xhr.status);
+                console.log("Response:", xhr.responseText);
+                if (xhr.status === 200 || xhr.status === 201) {
+                    callback(xhr.responseText);
+                } else {
+                    callback(null);
+                }
             }
         };
         xhr.send(JSON.stringify(data));
@@ -137,7 +156,6 @@ require_once("templates/header.php");
         });
 
     });
-
 
     // Manipulador de evento para o formulário de cadastro
     document.getElementById("register-form").addEventListener("submit", function (event) {
@@ -199,5 +217,5 @@ require_once("templates/header.php");
     });
 </script>
 </body>
-<?php //require_once("templates/footer.php"); ?>
+<?php require_once("templates/footer.php"); ?>
 </html>
