@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Inclua os arquivos necessários
 include_once("helpers/url.php");
 include_once("data/posts.php");
 include_once("data/categories.php");
@@ -15,10 +14,14 @@ include_once("data/categories.php");
     <title>Alto Vale News</title>
     <!-- ESTILOS DO PROJETO -->
     <link rel="stylesheet" href="<?= $BASE_URL ?>/css/styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.css"
           integrity="sha512-lp6wLpq/o3UVdgb9txVgXUTsvs0Fj1YfelAbza2Kl/aQHbNnfTYPMLiQRvy3i+3IigMby34mtcvcrh31U50nRw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,13 +91,13 @@ include_once("data/categories.php");
     var editprofileBtn = document.getElementById("editprofile-btn");
 
     if (autenticado) {
-        logoutBtn.style.display = "block"; // Exibir o botão Sair se o usuário estiver autenticado
-        loginBtn.style.display = "none"; // Ocultar o botão Cadastro/Login se o usuário estiver autenticado
-        editprofileBtn.style.display = "block"; // Exibir o botão Editar Perfil se o usuário estiver autenticado
+        logoutBtn.style.display = "block";
+        loginBtn.style.display = "none";
+        editprofileBtn.style.display = "block";
     } else {
-        logoutBtn.style.display = "none"; // Ocultar o botão Sair se o usuário não estiver autenticado
-        loginBtn.style.display = "block"; // Exibir o botão Cadastro/Login se o usuário não estiver autenticado
-        editprofileBtn.style.display = "none"; // Ocultar o botão Editar Perfil se o usuário não estiver autenticado
+        logoutBtn.style.display = "none";
+        loginBtn.style.display = "block";
+        editprofileBtn.style.display = "none";
     }
 </script>
 <!--</body>-->
