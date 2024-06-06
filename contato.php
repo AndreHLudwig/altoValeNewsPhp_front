@@ -62,7 +62,7 @@ include_once("templates/header.php");
 
         // Cria o objeto JSON com os dados do comentário
         var data = {
-            "nome": nome,
+            "nome": name,
             "email": email,
             "data": new Date().toISOString().split('T')[0],
             "message": message

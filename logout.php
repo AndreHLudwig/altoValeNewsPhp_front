@@ -1,20 +1,19 @@
 <?php
-session_start();
 require_once("templates/header.php");
-echo "Sessão iniciada<br>";
 
-$_SESSION = array(); // limpa a sessão
-echo "Variáveis de sessão limpas<br>";
+$_SESSION = array();
 
 session_destroy();
-echo "Sessão destruída<br>";
+
+error_log("Sessão iniciada");
+error_log("Variáveis de sessão limpas");
+error_log("Sessão destruída");
 
 echo '<script>';
 echo 'localStorage.removeItem("usuario");';
 echo 'localStorage.setItem("autenticado", "false");';
 echo 'window.location.href = "index.php";';
 echo '</script>';
-echo "Dados do localStorage limpos e redirecionamento iniciado<br>";
 
 exit;
 ?>
