@@ -32,6 +32,9 @@ require_once("templates/header.php");
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Entrar</button>
                         </div>
+                        <div id="login-error" class="alert alert-danger" style="display: none;">
+                            Usuário ou senha inválidos, tente novamente.
+                        </div>
                     </form>
                 </div>
             </div>
@@ -94,13 +97,15 @@ require_once("templates/header.php");
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
+                        <div id="register-error" class="alert alert-danger" style="display: none;">
+                            E-mail já cadastrado ou CPF inválido, verifique.
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script>
     // Função para enviar uma requisição POST com AJAX
@@ -120,6 +125,14 @@ require_once("templates/header.php");
             }
         };
         xhr.send(JSON.stringify(data));
+    }
+
+    // Função para exibir e ocultar mensagens de erro
+    function mostrarMensagemErro(elemento) {
+        elemento.style.display = "block";
+        setTimeout(function() {
+            elemento.style.display = "none";
+        }, 5000);
     }
 
     // Manipulador de evento para o formulário de login
@@ -148,13 +161,15 @@ require_once("templates/header.php");
                 // Redireciona para o index
                 window.location.href = "index.php";
             } else {
+                // Se e-mail ou senha inválida
+                var loginError = document.getElementById("login-error");
+                mostrarMensagemErro(loginError);
                 // Autenticação falhou
                 console.log("Autenticação falhou");
                 // Definir sinalizador de autenticação como falso
                 localStorage.setItem("autenticado", "false");
             }
         });
-
     });
 
     // Manipulador de evento para o formulário de cadastro
@@ -208,6 +223,9 @@ require_once("templates/header.php");
                 // Redirecionar para index.php após o cadastro bem-sucedido
                 window.location.href = "index.php";
             } else {
+                // Se e-mail já cadastrado ou CPF inválido (ou erro interno)
+                var registerError = document.getElementById("register-error");
+                mostrarMensagemErro(registerError);
                 // Cadastro falhou
                 console.log("Cadastro falhou");
                 // Definir sinalizador de cadastro como falha
