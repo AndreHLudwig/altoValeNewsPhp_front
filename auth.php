@@ -98,8 +98,15 @@ require_once("templates/header.php");
                             <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
                         <div id="register-error" class="alert alert-danger" style="display: none;">
-                            E-mail já cadastrado ou CPF inválido, verifique.
+                            Erro interno, por favor tente novamente mais tarde ou contate o administrador do portal.
                         </div>
+                        <div id="cpf-error" class="alert alert-danger" style="display: none;">
+                            CPF inválido. Por favor, verifique e tente novamente.
+                        </div>
+                        <div id="email-error" class="alert alert-danger" style="display: none;">
+                            E-mail já cadastrado. Por favor, use outro e-mail.
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -117,19 +124,16 @@ require_once("templates/header.php");
             if (xhr.readyState === 4) {
                 console.log("Status:", xhr.status);
                 console.log("Response:", xhr.responseText);
-                if (xhr.status === 200 || xhr.status === 201) {
-                    callback(xhr.responseText);
-                } else {
-                    callback(null);
-                }
+                callback(xhr.status, xhr.responseText);
             }
         };
         xhr.send(JSON.stringify(data));
     }
 
     // Função para exibir e ocultar mensagens de erro
-    function mostrarMensagemErro(elemento) {
+    function mostrarMensagemErro(elemento, mensagem) {
         elemento.style.display = "block";
+        elemento.innerHTML = mensagem;
         setTimeout(function() {
             elemento.style.display = "none";
         }, 5000);
@@ -149,8 +153,8 @@ require_once("templates/header.php");
         };
 
         // Enviar requisição POST para fazer login
-        enviarRequisicaoPOST("http://localhost:8080/usuario/login", loginData, function (response) {
-            if (response) {
+        enviarRequisicaoPOST("http://localhost:8080/usuario/login", loginData, function (status, response) {
+            if (status === 200) {
                 // Autenticação bem-sucedida, acessar detalhes do usuário
                 var usuario = JSON.parse(response);
                 console.log("Usuário autenticado: ", usuario);
@@ -161,9 +165,9 @@ require_once("templates/header.php");
                 // Redireciona para o index
                 window.location.href = "index.php";
             } else {
-                // Se e-mail ou senha inválida
+                // Exibir mensagem de erro de autenticação
                 var loginError = document.getElementById("login-error");
-                mostrarMensagemErro(loginError);
+                mostrarMensagemErro(loginError, "Usuário ou senha inválidos, tente novamente.");
                 // Autenticação falhou
                 console.log("Autenticação falhou");
                 // Definir sinalizador de autenticação como falso
@@ -208,9 +212,8 @@ require_once("templates/header.php");
         };
 
         // Enviar requisição POST para cadastrar um usuário
-        enviarRequisicaoPOST("http://localhost:8080/usuario", registerData, function (response) {
-            // Lógica para manipular a resposta do servidor após o cadastro
-            if (response) {
+        enviarRequisicaoPOST("http://localhost:8080/usuario", registerData, function (status, response) {
+            if (status === 201) {
                 // Cadastro bem-sucedido, acessar detalhes do usuário
                 var usuario = JSON.parse(response);
                 console.log("Usuário cadastrado: ", usuario);
@@ -222,13 +225,19 @@ require_once("templates/header.php");
 
                 // Redirecionar para index.php após o cadastro bem-sucedido
                 window.location.href = "index.php";
+            } else if (status === 400) {
+                // CPF inválido
+                var cpfError = document.getElementById("cpf-error");
+                mostrarMensagemErro(cpfError, "CPF inválido. Por favor, verifique e tente novamente.");
+            } else if (status === 409) {
+                // E-mail já cadastrado
+                var emailError = document.getElementById("email-error");
+                mostrarMensagemErro(emailError, "E-mail já cadastrado. Por favor, use outro e-mail.");
             } else {
-                // Se e-mail já cadastrado ou CPF inválido (ou erro interno)
+                // Outro erro
                 var registerError = document.getElementById("register-error");
-                mostrarMensagemErro(registerError);
-                // Cadastro falhou
+                mostrarMensagemErro(registerError, "Erro interno, por favor tente novamente mais tarde ou contate o administrador do portal.");
                 console.log("Cadastro falhou");
-                // Definir sinalizador de cadastro como falha
                 localStorage.setItem("autenticado", "false");
             }
         });
