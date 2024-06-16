@@ -44,22 +44,10 @@ include_once("data/categories.php");
                         <a class="nav-link" href="<?= $BASE_URL ?>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Cultura</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Economia</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Esportes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Política</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Regionais</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="<?= $BASE_URL ?>contato.php">Contato</a>
+                    </li>
+                    <li class="nav-item" id="editorpannel-btn" style="display: none;">
+                        <a class="nav-link" href="<?= $BASE_URL ?>editorpannel.php">Painel do Editor</a>
                     </li>
                     <li class="nav-item" id="editprofile-btn" style="display: none;">
                         <a class="nav-link" href="<?= $BASE_URL ?>editprofile.php">Editar Perfil</a>
@@ -84,21 +72,30 @@ include_once("data/categories.php");
 <script>
     // Verificar se o usuário está autenticado no localStorage
     var autenticado = localStorage.getItem("autenticado") === "true";
+    var usuario = JSON.parse(localStorage.getItem("usuario")) || {}; // Recuperar e parsear o JSON
 
     // Atualizar dinamicamente a exibição dos botões com base na autenticação
     var logoutBtn = document.getElementById("logout-btn");
     var loginBtn = document.getElementById("login-btn");
     var editprofileBtn = document.getElementById("editprofile-btn");
+    var editorpannelBtn = document.getElementById("editorpannel-btn");
 
     if (autenticado) {
         logoutBtn.style.display = "block";
         loginBtn.style.display = "none";
         editprofileBtn.style.display = "block";
+        if (usuario.tipo === 2 || usuario.tipo === 3) {
+            editorpannelBtn.style.display = "block";
+        } else {
+            editorpannelBtn.style.display = "none";
+        }
     } else {
         logoutBtn.style.display = "none";
         loginBtn.style.display = "block";
         editprofileBtn.style.display = "none";
+        editorpannelBtn.style.display = "none";
     }
+
 </script>
 <!--</body>-->
 </html>
