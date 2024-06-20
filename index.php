@@ -29,7 +29,7 @@ $posts = json_decode($response, true);
             <?php foreach ($posts as $post) : ?>
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="<?= $BASE_URL ?>/img/<?= $post['imagem'] ?>" class="card-img-top"
+                        <img src="<?= $BASE_URL ?>img/<?= $post['imagem'] ?>" class="card-img-top"
                              alt="<?= $post['titulo'] ?>">
                         <div class="card-body">
                             <h5 class="card-title"><a
