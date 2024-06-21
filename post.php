@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
             ?>
             <body>
             <main id="post-container" class="container py-4">
-                <div class="row">
+                <div class="row col-md-12">
                     <div class="col-md-10">
                         <h1 id="main-title" class="mb-4"><?= $post['titulo'] ?></h1>
                         <p><strong>Publicado por:</strong> <?= $post['editor']['nome'] ?> <?= $post['editor']['sobrenome'] ?></p>
@@ -52,7 +52,9 @@ if (isset($_GET['id'])) {
                         <h3 id="comments-title">Comentários</h3>
                         <div id="comment-box">
                             <textarea id="comment-text" class="form-control" placeholder="Digite seu comentário aqui"></textarea>
-                            <button onclick="enviarComentario()" class="btn btn-primary">Enviar Comentário</button>
+                            <div class="button-container" style="text-align: left;">
+                                <button onclick="enviarComentario()" class="btn btn-primary">Enviar Comentário</button>
+                            </div>
                         </div>
                         <div id="login-warning" class="alert alert-danger" style="display: none;">
                             Você precisa estar autenticado para enviar um comentário. <a href="auth.php" class="alert-link">Clique aqui para fazer login</a>.
@@ -63,9 +65,18 @@ if (isset($_GET['id'])) {
                                     <p><strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?></p>
                                     <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
                                     <p><?= $comment['texto'] ?></p>
+                                    <?php
+                                    // Verifica se o ID do comentário está definido e não é nulo
+                                    if (isset($comment['comentarioId'])) {
+                                        $commentId = $comment['comentarioId'];
+                                        // Inclui o ID do comentário de forma segura usando json_encode
+                                        echo '<button onclick="deletarComentario(' . json_encode($commentId) . ')" class="btn btn-danger btn-sm">Deletar</button>';
+                                    }
+                                    ?>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
+
                     </div>
                 </div>
             </main>
@@ -81,6 +92,60 @@ if (isset($_GET['id'])) {
 include_once("templates/footer.php");
 ?>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentUser = JSON.parse(localStorage.getItem('usuario'));
+        var currentUserId = currentUser ? currentUser.userId : null;
+        var currentUserType = currentUser ? currentUser.tipo : null;
+
+        var comentarios = document.querySelectorAll('#comment-list .btn-danger');
+        comentarios.forEach(function(botao) {
+            var idComentario = botao.getAttribute('data-comentario-id');
+            var idUsuarioComentario = botao.getAttribute('data-usuario-id');
+
+            // Verifica se o ID do usuário atual corresponde ao ID do usuário associado ao comentário
+            if (idUsuarioComentario == currentUserId || currentUserType == 3) {
+                botao.style.display = 'block'; // Mostra o botão de deletar
+                console.log("idComentario:");
+                console.log(idComentario);
+                console.log("idUsuarioComentario:");
+                console.log(idUsuarioComentario);
+                console.log("currentUserId:");
+                console.log(currentUserId);
+                console.log("currentUserType");
+                console.log(currentUserType);
+                console.log("----------------------------:");
+            }
+        });
+    });
+
+
+    function deletarComentario(comentarioId) {
+        // Confirmação de exclusão
+        if (!confirm("Tem certeza que deseja deletar este comentário?")) {
+            return;
+        }
+
+        // Envia a requisição DELETE para o servidor
+        fetch(`http://localhost:8080/comentario/${comentarioId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Comentário deletado com sucesso
+                    console.log('Comentário deletado');
+                    location.reload();
+                } else {
+                    throw new Error('Erro ao deletar o comentário');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+    }
+
     // Função para enviar o comentário
     function enviarComentario() {
         // Obtém o texto do comentário do usuário
@@ -149,4 +214,5 @@ include_once("templates/footer.php");
                 console.error('Erro:', error);
             });
     }
+
 </script>
