@@ -60,21 +60,23 @@ if (isset($_GET['id'])) {
                             Você precisa estar autenticado para enviar um comentário. <a href="auth.php" class="alert-link">Clique aqui para fazer login</a>.
                         </div>
                         <ul id="comment-list" class="list-unstyled">
-                            <?php foreach ($post['comentarios'] as $comment): ?>
-                                <li class="mb-4 p-3 border rounded bg-light">
-                                    <p><strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?></p>
-                                    <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
-                                    <p><?= $comment['texto'] ?></p>
-                                    <?php
-                                    // Verifica se o ID do comentário está definido e não é nulo
-                                    if (isset($comment['comentarioId'])) {
-                                        $commentId = $comment['comentarioId'];
-                                        // Inclui o ID do comentário de forma segura usando json_encode
-                                        echo '<button onclick="deletarComentario(' . json_encode($commentId) . ')" class="btn btn-danger btn-sm">Deletar</button>';
-                                    }
-                                    ?>
-                                </li>
-                            <?php endforeach; ?>
+                        <?php foreach ($post['comentarios'] as $comment): ?>
+                            <li class="mb-4 p-3 border rounded bg-light">
+                                <p><strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?></p>
+                                <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
+                                <p><?= $comment['texto'] ?></p>
+                                <?php
+                                // Verifica se o ID do comentário está definido e não é nulo
+                                if (isset($comment['comentarioId'])) {
+                                    $commentId = $comment['comentarioId'];
+                                    $commentUserId = $comment['usuario']['userId']; // Supondo que exista um campo userId em usuário
+                                    // Inclui o ID do comentário e o ID do usuário de forma segura usando json_encode
+                                    echo '<button onclick="deletarComentario(' . json_encode($commentId) . ')" class="btn btn-danger btn-sm" data-comentario-id="' . htmlspecialchars($commentId) . '" data-usuario-id="' . htmlspecialchars($commentUserId) . '">Deletar</button>';
+                                }
+                                ?>
+                            </li>
+                        <?php endforeach; ?>
+
                         </ul>
 
                     </div>
@@ -105,18 +107,12 @@ include_once("templates/footer.php");
             // Verifica se o ID do usuário atual corresponde ao ID do usuário associado ao comentário
             if (idUsuarioComentario == currentUserId || currentUserType == 3) {
                 botao.style.display = 'block'; // Mostra o botão de deletar
-                console.log("idComentario:");
-                console.log(idComentario);
-                console.log("idUsuarioComentario:");
-                console.log(idUsuarioComentario);
-                console.log("currentUserId:");
-                console.log(currentUserId);
-                console.log("currentUserType");
-                console.log(currentUserType);
-                console.log("----------------------------:");
+            } else {
+                botao.style.display = 'none'; // Esconde o botão de deletar
             }
         });
     });
+
 
 
     function deletarComentario(comentarioId) {
