@@ -122,6 +122,13 @@ main {
     text-align: left;
 }
 
+.like-dislike-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
 #post-container {
     display: flex;
     flex-wrap: wrap;
