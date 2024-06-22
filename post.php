@@ -20,27 +20,32 @@ if (isset($_GET['id'])) {
             <main id="post-container" class="container py-4">
                 <div class="row col-md-12">
                     <div class="col-md-10">
-                        <h1 id="main-title" class="mb-4"><?= $post['titulo'] ?></h1>
-                        <p><strong>Publicado por:</strong> <?= $post['editor']['nome'] ?> <?= $post['editor']['sobrenome'] ?></p>
+                        <h1 id="main-title" class="mb-4"><?= htmlspecialchars($post['titulo']) ?></h1>
+                        <p><strong>Publicado por:</strong> <?= htmlspecialchars($post['editor']['nome']) ?> <?= htmlspecialchars($post['editor']['sobrenome']) ?></p>
                         <p><strong>Data de Publicação:</strong> <?= date('d/m/Y', strtotime($post['data'])) ?></p>
-                        <p id="post-content" class="post-content"><?= $post['texto'] ?></p>
-                        <?php if ($post['imagem'] !== null): ?>
-                            <div class="img-container mb-4">
-                                <img src="<?= $post['imagem'] ?>" class="img-fluid rounded" alt="<?= $post['titulo'] ?>">
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($post['video'] !== null): ?>
-                            <div class="video-container mb-4">
-                                <video controls class="img-fluid rounded">
-                                    <source src="<?= $post['video'] ?>" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                        <?php endif; ?>
+<!--                        --><?php //if ($post['imagem'] !== null): ?>
+<!--                            <div class="img-container mb-4">-->
+<!--                                --><?php
+//                                // Converte o array de bytes em uma string base64
+//                                $imageData = base64_encode(implode(array_map("chr", $post['imagem']['data'])));
+//                                $imageSrc = "data:" . $post['imagem']['fileType'] . ";base64," . $imageData;
+//                                ?>
+<!--                                <img src="--><?php //= htmlspecialchars($imageSrc) ?><!--" class="img-fluid rounded" alt="--><?php //= htmlspecialchars($post['titulo']) ?><!--">-->
+<!--                            </div>-->
+<!--                        --><?php //endif; ?>
+                        <p id="post-content" class="post-content"><?= htmlspecialchars($post['texto']) ?></p>
+<!--                        --><?php //if ($post['video'] !== null): ?>
+<!--                            <div class="video-container mb-4">-->
+<!--                                <video controls class="img-fluid rounded">-->
+<!--                                    <source src="--><?php //= htmlspecialchars($post['video']['filePath']) ?><!--" type="video/mp4">-->
+<!--                                    Your browser does not support the video tag.-->
+<!--                                </video>-->
+<!--                            </div>-->
+<!--                        --><?php //endif; ?>
                         <div class="like-dislike-container">
-                            <button onclick="curtirPublicacao(<?= $post['publicacaoId'] ?>)" class="btn btn-info btn-sm"><i class="fa-regular fa-thumbs-up"></i></button>
-                            <span id="curtidas-publicacao"><?= $post['curtidas'] ?></span>
-                            <button onclick="descurtirPublicacao(<?= $post['publicacaoId'] ?>)" class="btn btn-secondary btn-sm"><i class="fa-regular fa-thumbs-down"></i></button>
+                            <button onclick="curtirPublicacao(<?= htmlspecialchars($post['publicacaoId']) ?>)" class="btn btn-info btn-sm"><i class="fa-regular fa-thumbs-up"></i></button>
+                            <span id="curtidas-publicacao"><?= htmlspecialchars($post['curtidas']) ?></span>
+                            <button onclick="descurtirPublicacao(<?= htmlspecialchars($post['publicacaoId']) ?>)" class="btn btn-secondary btn-sm"><i class="fa-regular fa-thumbs-down"></i></button>
                         </div>
                     </div>
 
@@ -48,7 +53,7 @@ if (isset($_GET['id'])) {
                         <div id="nav-container" class="mb-4">
                             <h3 id="categories-title">Categoria</h3>
                             <ul id="categories-list" class="list-group">
-                                <li class="list-group-item"><a href="#"><?= $post['categoria'] ?></a></li>
+                                <li class="list-group-item"><a href="#"><?= htmlspecialchars($post['categoria']) ?></a></li>
                             </ul>
                         </div>
                     </div>
@@ -60,22 +65,15 @@ if (isset($_GET['id'])) {
                         <ul id="comments-list" class="list-group">
                             <?php foreach ($post['comentarios'] as $comment): ?>
                                 <li class="mb-4 p-3 border rounded bg-light">
-                                    <p><strong>Por:</strong> <?= $comment['usuario']['nome'] ?> <?= $comment['usuario']['sobrenome'] ?></p>
+                                    <p><strong>Por:</strong> <?= htmlspecialchars($comment['usuario']['nome']) ?> <?= htmlspecialchars($comment['usuario']['sobrenome']) ?></p>
                                     <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($comment['data'])) ?></p>
-                                    <p><?= $comment['texto'] ?></p>
+                                    <p><?= htmlspecialchars($comment['texto']) ?></p>
                                     <div class="like-dislike-container">
-                                        <button onclick="curtirComentario(<?= $comment['comentarioId'] ?>)" class="btn btn-info btn-sm"><i class="fa-regular fa-thumbs-up"></i></button>
-                                        <span id="curtidas-comentario-<?= $comment['comentarioId'] ?>"><?= $comment['curtidas'] ?></span>
-                                        <button onclick="descurtirComentario(<?= $comment['comentarioId'] ?>)" class="btn btn-secondary btn-sm"><i class="fa-regular fa-thumbs-down"></i></button>
+                                        <button onclick="curtirComentario(<?= htmlspecialchars($comment['comentarioId']) ?>)" class="btn btn-info btn-sm"><i class="fa-regular fa-thumbs-up"></i></button>
+                                        <span id="curtidas-comentario-<?= htmlspecialchars($comment['comentarioId']) ?>"><?= htmlspecialchars($comment['curtidas']) ?></span>
+                                        <button onclick="descurtirComentario(<?= htmlspecialchars($comment['comentarioId']) ?>)" class="btn btn-secondary btn-sm"><i class="fa-regular fa-thumbs-down"></i></button>
                                     </div>
-                                    <?php
-                                    if (isset($comment['comentarioId'])) {
-                                        $commentId = $comment['comentarioId'];
-                                        $commentUserId = $comment['usuario']['userId']; // Supondo que exista um campo userId em usuário
-                                        // Inclui o ID do comentário e o ID do usuário de forma segura usando json_encode
-                                        echo '<button onclick="deletarComentario(' . json_encode($commentId) . ')" class="btn btn-danger btn-sm" data-comentario-id="' . htmlspecialchars($commentId) . '" data-usuario-id="' . htmlspecialchars($commentUserId) . '">Deletar</button>';
-                                    }
-                                    ?>
+                                    <button onclick="deletarComentario(<?= htmlspecialchars($comment['comentarioId']) ?>)" class="btn btn-danger btn-sm" data-comentario-id="<?= htmlspecialchars($comment['comentarioId']) ?>" data-usuario-id="<?= htmlspecialchars($comment['usuario']['userId']) ?>">Deletar</button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -88,51 +86,51 @@ if (isset($_GET['id'])) {
                     fetch(`http://localhost:8080/publicacao/${id}/like`, {
                         method: 'PATCH'
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('curtidas-publicacao').innerText = data.curtidas;
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('curtidas-publicacao').innerText = data.curtidas;
+                        });
                 }
 
                 function descurtirPublicacao(id) {
                     fetch(`http://localhost:8080/publicacao/${id}/dislike`, {
                         method: 'PATCH'
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('curtidas-publicacao').innerText = data.curtidas;
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('curtidas-publicacao').innerText = data.curtidas;
+                        });
                 }
 
                 function curtirComentario(id) {
                     fetch(`http://localhost:8080/comentario/${id}/like`, {
                         method: 'PATCH'
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById(`curtidas-comentario-${id}`).innerText = data.curtidas;
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById(`curtidas-comentario-${id}`).innerText = data.curtidas;
+                        });
                 }
 
                 function descurtirComentario(id) {
                     fetch(`http://localhost:8080/comentario/${id}/dislike`, {
                         method: 'PATCH'
                     })
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById(`curtidas-comentario-${id}`).innerText = data.curtidas;
-                    });
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById(`curtidas-comentario-${id}`).innerText = data.curtidas;
+                        });
                 }
 
                 function deletarComentario(id) {
                     fetch(`http://localhost:8080/comentario/${id}`, {
                         method: 'DELETE'
                     })
-                    .then(response => {
-                        if (response.ok) {
-                            location.reload(); // Recarrega a página após a exclusão do comentário
-                        }
-                    });
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            }
+                        });
                 }
             </script>
             </body>
