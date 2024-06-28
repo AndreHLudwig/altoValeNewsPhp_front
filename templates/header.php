@@ -45,6 +45,10 @@ include_once("data/categories.php");
                     </li>
                     <li class="nav-item" id="editorpannel-btn" style="display: none;">
                         <a class="nav-link" href="<?= $BASE_URL ?>editorpannel.php">Painel do Editor</a>
+                    </li>
+                    <li class="nav-item" id="adminpannel-btn" style="display: none;">
+                        <a class="nav-link" href="<?= $BASE_URL ?>adminpannel.php">Painel do Admin</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $BASE_URL ?>contato.php">Contato</a>
                     </li>
@@ -78,6 +82,7 @@ include_once("data/categories.php");
     var loginBtn = document.getElementById("login-btn");
     var editprofileBtn = document.getElementById("editprofile-btn");
     var editorpannelBtn = document.getElementById("editorpannel-btn");
+    var adminpannelBtn = document.getElementById("adminpannel-btn");
 
     if (autenticado) {
         logoutBtn.style.display = "block";
@@ -85,15 +90,19 @@ include_once("data/categories.php");
         editprofileBtn.style.display = "block";
         if (usuario.tipo === 2 || usuario.tipo === 3) {
             editorpannelBtn.style.display = "block";
+            if (usuario.tipo === 3){
+                adminpannelBtn.style.display = "block";
+            }
         } else {
             editorpannelBtn.style.display = "none";
+            adminpannelBtn.style.display = "none";
         }
     } else {
         logoutBtn.style.display = "none";
         loginBtn.style.display = "block";
         editprofileBtn.style.display = "none";
         editorpannelBtn.style.display = "none";
+        adminpannelBtn.style.display = "none";
     }
 </script>
-<!--</body>-->
 </html>
