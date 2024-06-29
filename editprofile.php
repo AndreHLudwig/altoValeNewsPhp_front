@@ -122,6 +122,9 @@ include_once("templates/header.php");
 
             var userId = usuario.userId;
             var endereco = document.getElementById("endereco").value;
+            var cidade = document.getElementById("cidade").value;
+            var estado = document.getElementById("estado").value;
+            var cep = document.getElementById("cep").value;
             var senha = document.getElementById("senha").value || null;
             var confirmarSenha = document.getElementById("confirmarSenha").value || null;
 
@@ -133,6 +136,9 @@ include_once("templates/header.php");
 
             var payload = {
                 endereco: endereco,
+                cidade: cidade,
+                estado: estado,
+                cep: cep,
                 senha: senha
             };
 
