@@ -29,7 +29,7 @@ if (isset($_GET['id'])) {
                                 $imageBase64 = 'data:' . $post['imagem']['fileType'] . ';base64,' . $imageData;
                                 ?>
                                 <img src="<?= $imageBase64 ?>" class="img-fluid rounded" alt="<?= $post['titulo'] ?>"
-                                     style="max-height: 30vh; width: auto; display: inline-block;">
+                                     style="max-height: 60vh; width: auto; display: inline-block;">
                             </div>
                         <?php endif; ?>
                         <p id="post-content" class="post-content"><?= htmlspecialchars($post['texto']) ?></p>
